@@ -437,9 +437,10 @@ if [[ ${OPTIONS} == "INSTALL" ]]; then
     while true; do
         config
     #    read -p "All information correct y/n:" yn
+        echo "All information correct"
     #    case $yn in
     #        [Yy]* ) install_spinnaker; break;;
-                install_spinnaker;
+        install_spinnaker; break;
     #        [Nn]* ) exit;;
     #        * ) echo "Please answer yes or no.";;
     #    esac
