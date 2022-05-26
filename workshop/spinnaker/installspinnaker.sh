@@ -50,15 +50,15 @@ fi
 
 config() { # GET User Input
     
-    printf "${BRED}Spinnaker Operator Version and Spinnaker Release Version should be like 1.2.5 1.26.6 NOT LIKE v1.2.5${COLOR_OFF}\n"
+
     
-    read -p "Spinaker operator Version from https://github.com/armory/spinnaker-operator/releases for versions : " SPINNAKER_OPERATOR_VERSION
+    SPINNAKER_OPERATOR_VERSION=1.2.5
     
-    read -p "Spinnaker release from https://spinnaker.io/community/releases/versions/:  " SPINNAKER_VERSION
+    SPINNAKER_VERSION=1.26.7
     
-    read -p "Git hub account user name: " GITHUB_USER
+    GITHUB_USER=
     
-    read -p "Git hub token: " -s GITHUB_TOKEN
+    GITHUB_TOKEN=
     
     if [[ ${SPINNAKER_OPERATOR_VERSION} =~ ^[vV]  || ${SPINNAKER_VERSION} =~ ^[vV] ]]; then
         
