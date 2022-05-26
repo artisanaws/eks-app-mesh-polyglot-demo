@@ -84,7 +84,7 @@ install_spinnaker_creds() { # ISTALLING Spinnaker Creds
     printf "${IGREEN}INSTALLING Spinnaker CRDs${COLOR_OFF}\n"
     echo "+++++++++++++++++++++++++++++++++++++++++++"
     sleep 5
-    eksctl utils associate-iam-oidc-provider --region=${AWS_REGION} --cluster=eksworkshop-eksctl --approve
+    eksctl utils associate-iam-oidc-provider --region=${AWS_REGION} --cluster=eks-cluster --approve
     cd ~/environment
     mkdir -p spinnaker-operator && cd spinnaker-operator
     bash -c "curl -L https://github.com/armory/spinnaker-operator/releases/download/v${SPINNAKER_OPERATOR_VERSION}/manifests.tgz | tar -xz"
@@ -165,7 +165,7 @@ create_iam_service_account() { # CREATING Service Account
     sleep 5
     
     kubectl create ns spinnaker
-    cluster_name=$(eksctl get cluster|grep -i eksworkshop|awk '{print $1}')
+    cluster_name=$(eksctl get cluster|grep -i eks-cluster|awk '{print $1}')
     if [ -z "${cluster_name}" ]
     then
         printf "${BRED}Cluster Doesnot Exists${COLOR_OFF}\n"
@@ -367,7 +367,7 @@ clean_up() { #DELETE THE RESOURCES
     done
     
     
-    cluster_name=$(eksctl get cluster|grep -i eksworkshop|awk '{print $1}')
+    cluster_name=$(eksctl get cluster|grep -i eks-cluster|awk '{print $1}')
     
     
     eksctl delete iamserviceaccount \
@@ -436,12 +436,13 @@ clean_up() { #DELETE THE RESOURCES
 if [[ ${OPTIONS} == "INSTALL" ]]; then
     while true; do
         config
-        read -p "All information correct y/n:" yn
-        case $yn in
-            [Yy]* ) install_spinnaker; break;;
-            [Nn]* ) exit;;
-            * ) echo "Please answer yes or no.";;
-        esac
+    #    read -p "All information correct y/n:" yn
+    #    case $yn in
+    #        [Yy]* ) install_spinnaker; break;;
+                install_spinnaker;
+    #        [Nn]* ) exit;;
+    #        * ) echo "Please answer yes or no.";;
+    #    esac
     done
 
 elif [[ ${OPTIONS} == "DELETE" ]]; then
